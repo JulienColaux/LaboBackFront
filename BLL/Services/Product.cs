@@ -36,7 +36,7 @@ namespace BLL.Services
         //------------------------------------------------------------------------------
 
 
-        public List<ProductDTOs> GetProductSortByCategory(string category)
+        public List<ProductDTOs> GetProductDTOSortByCategory(string category)
         {
             var productsDTO = _productRepository.GetProductsByCategory(category);
             return ProductMapper.ToDTOList(productsDTO);

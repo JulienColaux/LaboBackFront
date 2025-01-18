@@ -56,7 +56,8 @@ namespace DAL.Repositories
                                 name = reader["Name"].ToString(),
                                 description = reader["Description"].ToString(),
                                 price = (int)reader["Price"],
-                                stock = (int)reader["Stock"]
+                                stock = (int)reader["Stock"],
+                                category = reader["Category"].ToString()
                             });
                         }
                     }
@@ -80,16 +81,22 @@ namespace DAL.Repositories
 
                 using (var command = new SqlCommand("SELECT * FROM Product WHERE Category = @category ", connection))
                 {
+                    command.Parameters.AddWithValue("@category", category); //parameters cest un propriété qui contient une liste de parametre qui seront utilisé dans la commande. addwithvalue cest une méthode de la propriété parameters qui permet d ajouter un nvx parametre. en gros ca permet d associer la valeur de category a @category
+
                     using (var reader = command.ExecuteReader())
                     {
-                        productsSortByCategory.Add(new Product
+                        while (reader.Read())
+                        {
+                            productsSortByCategory.Add(new Product
                         {
                             id = (int)reader["Id"],
                             name = reader["Name"].ToString(),
                             description = reader["Description"].ToString(),
                             price = (int)reader["Price"],
-                            stock = (int)reader["Stock"]
+                            stock = (int)reader["Stock"],
+                            category = reader["Category"].ToString()
                         });
+                        }
                     }
                 }
             }
