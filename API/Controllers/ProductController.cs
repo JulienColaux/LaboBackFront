@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BLL.Services;
 using DAL.Entities;
+using BLL.DTO_s;
 
 namespace API.Controllers
 {
@@ -24,17 +25,17 @@ namespace API.Controllers
 
 
 
-        [HttpGet("all")] //Ca indique que cette méthode sera appelé avec une requete HTTP GET
-        public ActionResult<List<Product>> GetAllProducts() //Le type ActionResult permet de gerer plusieur scenario de reponse. ( OK(les données), NotFound et BadRequest et bien d autre)
+        [HttpGet("all")]
+        public ActionResult<List<ProductDTOs>> GetAllProducts()
         {
             var products = _productService.GetAllProductsDTO();
-            return Ok(products); // On renvoi les données recupéré via la methode de la BLL sous format json
+            return Ok(products); // Retourne les DTOs mappés au frontend
         }
 
         //-----------------------------------------------------------------------------
 
         [HttpGet("sortByCategory")]
-        public ActionResult<List<Product>>GetProductSortByCategory(string category)
+        public ActionResult<List<ProductDTOs>> GetProductSortByCategory(string category)
         {
             var productsSortByCategory = _productService.GetProductDTOSortByCategory(category);
             return Ok(productsSortByCategory);

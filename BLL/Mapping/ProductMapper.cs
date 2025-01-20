@@ -14,6 +14,7 @@ namespace BLL.Mapping
         {
             return new ProductDTOs
             {
+                Id = product.id,
                 Name = product.name,
                 Description = product.description,
                 Price = product.price,
